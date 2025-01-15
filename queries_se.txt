@@ -1,0 +1,67 @@
+## Number of questions on the period
+SELECT 
+    COUNT(*) AS TotalQuestions
+FROM 
+    Posts
+WHERE 
+    PostTypeId = 1 -- Questions only
+    AND CreationDate BETWEEN '2014-01-01' AND '2014-07-31';
+
+
+
+SELECT 
+    COUNT(*) AS TotalQuestions
+FROM 
+    Posts
+WHERE 
+    PostTypeId = 1 -- Questions only
+    AND CreationDate BETWEEN '2024-01-01' AND '2024-01-31';
+
+
+####
+
+#Query 1 - Getting all the questions
+
+SELECT 
+    q.Id AS QuestionId,
+    q.OwnerUserId AS QuestionOwnerId,
+    q.Title AS QuestionTitle,
+    q.Tags AS QuestionTags,
+    q.Score AS QuestionVotes,
+    q.CreationDate AS QuestionCreationDate,
+    COUNT(a.Id) AS AnswerCount
+FROM 
+    Posts q
+LEFT JOIN 
+    Posts a
+ON 
+    q.Id = a.ParentId
+    AND a.PostTypeId = 2 -- Count only posts of type "Answer"
+WHERE 
+    q.PostTypeId = 1 -- Questions
+    AND q.CreationDate BETWEEN '2019-01-01' AND '2019-01-10'
+GROUP BY 
+    q.Id, q.OwnerUserId, q.Title, q.Tags, q.Score, q.CreationDate
+ORDER BY 
+    q.CreationDate ASC;
+
+
+
+#Query 2 -  Getting all answers to question of Query 1
+SELECT 
+    a.ParentId AS QuestionId,
+    a.OwnerUserId AS AnswerOwnerId,
+    a.Score AS AnswerVotes,
+    a.CreationDate AS AnswerCreationDate
+FROM 
+    Posts a
+WHERE 
+    a.PostTypeId = 2 -- Answers
+    AND a.ParentId IN (
+        SELECT q.Id
+        FROM Posts q
+        WHERE q.PostTypeId = 1
+        AND q.CreationDate BETWEEN '2019-01-01' AND '2019-01-10'
+    )
+ORDER BY 
+    a.CreationDate ASC;

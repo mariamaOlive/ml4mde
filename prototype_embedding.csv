@@ -1,0 +1,4 @@
+acc,top,type
+0.06609327082378652,10,nlp_sentence_transformer
+0.09372907046423913,20,nlp_sentence_transformer
+0.14085797877965384,50,nlp_sentence_transformer

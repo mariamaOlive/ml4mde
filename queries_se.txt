@@ -65,3 +65,16 @@ WHERE
     )
 ORDER BY 
     a.CreationDate ASC;
+
+
+####Queries for the report
+
+###Percentage of unanswered questions
+SELECT 
+    YEAR(CreationDate) AS Year,
+    COUNT(CASE WHEN AnswerCount = 0 THEN 1 END) * 100.0 / COUNT(*) AS Percentage_Unanswered
+FROM Posts
+WHERE PostTypeId = 1 -- Only questions
+AND CreationDate >= DATEADD(YEAR, -10, GETDATE()) -- Last 10 years
+GROUP BY YEAR(CreationDate)
+ORDER BY Year

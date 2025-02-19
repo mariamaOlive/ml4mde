@@ -1,0 +1,6 @@
+acc,recall,top,type
+0.07865746078935304,0.062450601887827195,5,nlp_sentence_transformer_question_tags
+0.11397135434755429,0.09036353062386619,10,nlp_sentence_transformer_question_tags
+0.15550893961074141,0.12357400799983116,20,nlp_sentence_transformer_question_tags
+0.21827375908200547,0.17431943981803705,50,nlp_sentence_transformer_question_tags
+0.27052220663212145,0.21748436067977636,100,nlp_sentence_transformer_question_tags
